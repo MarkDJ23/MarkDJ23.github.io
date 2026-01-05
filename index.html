@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MarkDJ23 — Godot Portfolio</title>
+  <style>
+    :root { --bg:#0b0f16; --card:#141b26; --text:#e7eefc; --muted:#9fb0d0; }
+    body { margin:0; font-family:system-ui,Segoe UI,Roboto,Arial; background:var(--bg); color:var(--text); }
+    .wrap { max-width:1100px; margin:0 auto; padding:48px 20px; }
+    h1 { margin:0 0 6px; font-size:34px; }
+    p { margin:0 0 24px; color:var(--muted); }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:16px; }
+    a.card {
+      display:block; text-decoration:none; color:inherit;
+      background:var(--card); border:1px solid rgba(255,255,255,.08);
+      padding:18px; border-radius:14px; transition:transform .08s ease, border-color .08s ease;
+    }
+    a.card:hover { transform:translateY(-2px); border-color:rgba(255,255,255,.18); }
+    .title { font-weight:700; margin-bottom:8px; }
+    .desc { color:var(--muted); font-size:14px; line-height:1.35; margin-bottom:12px; }
+    .tags { display:flex; flex-wrap:wrap; gap:8px; }
+    .tag { font-size:12px; color:var(--muted); border:1px solid rgba(255,255,255,.12); padding:4px 8px; border-radius:999px; }
+    footer { margin-top:28px; color:var(--muted); font-size:13px; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <h1>MarkDJ23 — Godot Portfolio</h1>
+    <p>Clickable tiles linking to my GitHub projects.</p>
+
+    <div class="grid">
+      <!-- Tile 1: Clicker -->
+      <a class="card" href="https://github.com/MarkDJ23/Clicker" target="_blank" rel="noopener">
+        <div class="title">Clicker</div>
+        <div class="desc">Godot clicker / incremental project. Source + dev logs in repo.</div>
+        <div class="tags">
+          <span class="tag">Godot</span><span class="tag">Incremental</span><span class="tag">C# / GDScript</span>
+        </div>
+      </a>
+
+      <!-- Add more tiles by copying this block -->
+      <a class="card" href="https://github.com/MarkDJ23" target="_blank" rel="noopener">
+        <div class="title">More projects</div>
+        <div class="desc">Browse everything on my GitHub profile.</div>
+        <div class="tags">
+          <span class="tag">GitHub</span>
+        </div>
+      </a>
+    </div>
+
+    <footer>
+      <div>GitHub: <a href="https://github.com/MarkDJ23" style="color:inherit;">@MarkDJ23</a></div>
+    </footer>
+  </div>
+</body>
+</html>
