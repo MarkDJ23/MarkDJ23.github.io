@@ -1,78 +1,338 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>MarkDJ23 — Godot Portfolio</title>
-  <style>
-    :root { --bg:#0b0f16; --card:#141b26; --text:#e7eefc; --muted:#9fb0d0; }
-    body { margin:0; font-family:system-ui,Segoe UI,Roboto,Arial; background:var(--bg); color:var(--text); }
-    .wrap { max-width:1100px; margin:0 auto; padding:48px 20px; }
-    h1 { margin:0 0 6px; font-size:34px; }
-    p { margin:0 0 24px; color:var(--muted); }
-    .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:16px; }
-    a.card {
-      display:block; text-decoration:none; color:inherit;
-      background:var(--card); border:1px solid rgba(255,255,255,.08);
-      padding:18px; border-radius:14px; transition:transform .08s ease, border-color .08s ease;
-    }
-    a.card:hover { transform:translateY(-2px); border-color:rgba(255,255,255,.18); }
-    .title { font-weight:700; margin-bottom:8px; }
-    .desc { color:var(--muted); font-size:14px; line-height:1.35; margin-bottom:12px; }
-    .tags { display:flex; flex-wrap:wrap; gap:8px; }
-    .tag { font-size:12px; color:var(--muted); border:1px solid rgba(255,255,255,.12); padding:4px 8px; border-radius:999px; }
-    footer { margin-top:28px; color:var(--muted); font-size:13px; }
-  </style>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>MarkDJ23 — Godot Portfolio</title>
+
+    <style>
+        :root {
+            --bg0: #070a12;
+            --bg1: #0b1020;
+            --card: #101827;
+            --card2: #0c1322;
+            --text: #e9f0ff;
+            --muted: #a6b5d6;
+            --line: rgba(255,255,255,.10);
+            --line2: rgba(255,255,255,.18);
+            --shadow: 0 12px 40px rgba(0,0,0,.45);
+            --radius: 18px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+            color: var(--text);
+            background: radial-gradient(900px 500px at 15% 10%, rgba(90,120,255,.20), transparent 60%), radial-gradient(800px 450px at 85% 25%, rgba(180,90,255,.16), transparent 55%), radial-gradient(700px 420px at 30% 85%, rgba(70,220,255,.12), transparent 55%), linear-gradient(180deg, var(--bg0), var(--bg1));
+        }
+
+        .wrap {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 56px 20px 40px;
+        }
+
+        /* Top bar */
+        .top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 18px;
+            margin-bottom: 22px;
+        }
+
+        .hero {
+            max-width: 720px;
+        }
+
+        h1 {
+            margin: 0 0 10px;
+            font-size: 36px;
+            letter-spacing: -.02em;
+            line-height: 1.1;
+        }
+
+        .subtitle {
+            margin: 0;
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            padding-top: 6px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: rgba(255,255,255,.04);
+            color: var(--text);
+            text-decoration: none;
+            font-size: 13px;
+            transition: transform .12s ease, border-color .12s ease, background .12s ease;
+            user-select: none;
+            white-space: nowrap;
+        }
+
+            .btn:hover {
+                transform: translateY(-1px);
+                border-color: var(--line2);
+                background: rgba(255,255,255,.06);
+            }
+
+        /* Section header */
+        .section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin: 22px 0 12px;
+        }
+
+            .section h2 {
+                margin: 0;
+                font-size: 14px;
+                color: var(--muted);
+                font-weight: 600;
+                letter-spacing: .12em;
+                text-transform: uppercase;
+            }
+
+        .hint {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        /* Cards grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 14px;
+        }
+
+        a.card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 18px;
+            border-radius: var(--radius);
+            text-decoration: none;
+            color: inherit;
+            background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)), radial-gradient(700px 140px at 20% 0%, rgba(120,120,255,.12), transparent 55%), radial-gradient(700px 140px at 80% 0%, rgba(210,110,255,.10), transparent 55%), var(--card);
+            border: 1px solid var(--line);
+            box-shadow: 0 6px 26px rgba(0,0,0,.35);
+            transition: transform .12s ease, border-color .12s ease, box-shadow .12s ease, background .12s ease;
+            overflow: hidden;
+            min-height: 168px;
+        }
+
+            a.card::after {
+                content: "";
+                position: absolute;
+                inset: -1px;
+                border-radius: var(--radius);
+                pointer-events: none;
+                opacity: 0;
+                transition: opacity .12s ease;
+                background: radial-gradient(600px 200px at var(--mx, 50%) var(--my, 20%), rgba(255,255,255,.10), transparent 50%);
+            }
+
+            a.card:hover {
+                transform: translateY(-3px);
+                border-color: var(--line2);
+                box-shadow: var(--shadow);
+            }
+
+                a.card:hover::after {
+                    opacity: 1;
+                }
+
+        .row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .title {
+            font-size: 18px;
+            font-weight: 750;
+            letter-spacing: -.01em;
+            margin: 0;
+        }
+
+        .badge {
+            font-size: 11px;
+            color: var(--muted);
+            border: 1px solid rgba(255,255,255,.14);
+            background: rgba(0,0,0,.18);
+            padding: 6px 10px;
+            border-radius: 999px;
+            flex: 0 0 auto;
+        }
+
+        .desc {
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.45;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: auto;
+            padding-top: 6px;
+        }
+
+        .tag {
+            font-size: 12px;
+            color: var(--muted);
+            border: 1px solid rgba(255,255,255,.12);
+            padding: 4px 9px;
+            border-radius: 999px;
+            background: rgba(255,255,255,.02);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 26px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(255,255,255,.08);
+            color: var(--muted);
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+            footer a {
+                color: inherit;
+                text-decoration: none;
+                border-bottom: 1px solid rgba(255,255,255,.20);
+            }
+
+                footer a:hover {
+                    border-bottom-color: rgba(255,255,255,.45);
+                }
+
+        /* Small screens */
+        @media (max-width: 520px) {
+            h1 {
+                font-size: 30px;
+            }
+
+            .actions {
+                justify-content: flex-start;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <div class="wrap">
-        <h1>MarkDJ23 — Godot Portfolio</h1>
-        <p>Clickable tiles linking to my GitHub projects.</p>
+        <div class="top">
+            <div class="hero">
+                <h1>MarkDJ23</h1>
+                <p class="subtitle">
+                    Godot projects and playable demos. Click a tile to launch a demo in your browser, or jump to the source on GitHub.
+                </p>
+            </div>
+
+            <div class="actions">
+                <a class="btn" href="https://github.com/MarkDJ23" target="_blank" rel="noopener">GitHub Profile</a>
+                <!-- Optional: add your resume link later -->
+                <!-- <a class="btn" href="/resume.pdf" target="_blank" rel="noopener">Resume</a> -->
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Demos</h2>
+            <div class="hint">Opens in a new tab</div>
+        </div>
 
         <div class="grid">
-            <!-- Tile 1: Clicker -->
             <a class="card" href="/Demos/MouseKnight/" target="_blank" rel="noopener">
-                <div class="title">Mouse Knight</div>
-                <div class="desc">Godot JRPG project.</div>
+                <div class="row">
+                    <h3 class="title">Mouse Knight</h3>
+                    <span class="badge">Playable Demo</span>
+                </div>
+                <p class="desc">A top-down JRPG-style project built in Godot.</p>
                 <div class="tags">
                     <span class="tag">Godot</span><span class="tag">RPG</span><span class="tag">GDScript</span>
                 </div>
             </a>
 
-                <!-- Tile 1: Clicker -->
-                <a class="card" href="/Demos/KingsArmy/Web/" target="_blank" rel="noopener">
-                    <div class="title">King's Army</div>
-                    <div class="desc">Godot clicker / autobattler / incremental project.</div>
-                    <div class="tags">
-                        <span class="tag">Godot</span><span class="tag">Incremental</span><span class="tag">GDScript</span>
-                    </div>
-                </a>
-
-                    <!-- Tile 1: Clicker -->
-                    <a class="card" href="/Demos/Detective/" target="_blank" rel="noopener">
-                        <div class="title">Detective</div>
-                        <div class="desc">Godot Detective game project.</div>
-                        <div class="tags">
-                            <span class="tag">Godot</span><span class="tag">Detective</span><span class="tag">GDScript</span>
-                        </div>
-                    </a>
-
-
-
-                    <!-- Add more tiles by copying this block -->
-                    <a class="card" href="https://github.com/MarkDJ23" target="_blank" rel="noopener">
-                        <div class="title">More projects</div>
-                        <div class="desc">Browse everything on my GitHub profile.</div>
-                        <div class="tags">
-                            <span class="tag">GitHub</span>
-                        </div>
-                    </a>
+            <a class="card" href="/Demos/KingsArmy/Web/" target="_blank" rel="noopener">
+                <div class="row">
+                    <h3 class="title">King's Army</h3>
+                    <span class="badge">Playable Demo</span>
                 </div>
+                <p class="desc">Clicker / autobattler / incremental prototype with fast iteration.</p>
+                <div class="tags">
+                    <span class="tag">Godot</span><span class="tag">Incremental</span><span class="tag">GDScript</span>
+                </div>
+            </a>
 
-                <footer>
-                    <div>GitHub: <a href="https://github.com/MarkDJ23" style="color:inherit;">@MarkDJ23</a></div>
-                </footer>
-            </div>
+            <a class="card" href="/Demos/Detective/" target="_blank" rel="noopener">
+                <div class="row">
+                    <h3 class="title">Detective</h3>
+                    <span class="badge">Playable Demo</span>
+                </div>
+                <p class="desc">Narrative detective prototype focused on investigation flow and UX.</p>
+                <div class="tags">
+                    <span class="tag">Godot</span><span class="tag">Detective</span><span class="tag">GDScript</span>
+                </div>
+            </a>
+
+            <a class="card" href="https://github.com/MarkDJ23" target="_blank" rel="noopener">
+                <div class="row">
+                    <h3 class="title">More Projects</h3>
+                    <span class="badge">GitHub</span>
+                </div>
+                <p class="desc">Browse everything on my GitHub profile (repos, tools, experiments).</p>
+                <div class="tags">
+                    <span class="tag">GitHub</span><span class="tag">Repos</span>
+                </div>
+            </a>
+        </div>
+
+        <footer>
+            <div>GitHub: <a href="https://github.com/MarkDJ23" target="_blank" rel="noopener">@MarkDJ23</a></div>
+            <div>Last updated via automated demo deploys</div>
+        </footer>
+    </div>
+
+    <script>
+    // Tiny hover “spotlight” for cards (optional, safe)
+    document.querySelectorAll('a.card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', ((e.clientX - r.left) / r.width) * 100 + '%');
+        card.style.setProperty('--my', ((e.clientY - r.top) / r.height) * 100 + '%');
+      });
+    });
+    </script>
 </body>
 </html>
